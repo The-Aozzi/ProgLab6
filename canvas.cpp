@@ -10,6 +10,15 @@ void Canvas::removeShape(size_t index){
         shapes.erase(shapes.begin()+index);
     }
 }
+std::string Canvas::exportToFile(std::map<int, std::shared_ptr<Canvas>>& exported) const{
+    static int index = 0;
+    std::ostringstream oss;
+    oss<<index;
+    index++;
+    exported.insert({0, std::make_shared<Canvas>(*this)});
+    return oss.str();
+}
+
 std::string Canvas::exportToFile() const{
     std::ostringstream oss;
     for(const auto& shape: shapes){
@@ -18,19 +27,6 @@ std::string Canvas::exportToFile() const{
     return oss.str();
 }
 
-void Canvas::importFromFile(const std::string& data){
-    shapes.clear();
-    std::istringstream iss(data);
-    std::string line;
-    while(std::getline(iss, line)){
-        if(line=="Line"){
-            shapes.push_back(std::make_shared<Line>());
-        }
-        if(line=="Circle"){
-            shapes.push_back(std::make_shared<Circle>());
-        }
-        if(line=="Rectangle"){
-            shapes.push_back(std::make_shared<Rectangle>());
-        }
-    }
+void Canvas::importFromFile(std::shared_ptr<Canvas> canvas){
+    *this = *canvas;
 }

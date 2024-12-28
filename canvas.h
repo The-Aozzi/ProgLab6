@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <map>
 #include <string>
 #include "shape.h"
 #include "brush.h"
@@ -18,6 +19,7 @@ public:
     void drawStroke(std::shared_ptr<Brush> brush);
     void removeStroke(size_t index);
     std::string exportToFile() const;
-    void importFromFile(const std::string& data);
+    std::string exportToFile(std::map<int, std::shared_ptr<Canvas>>&) const;
+    void importFromFile(std::shared_ptr<Canvas>);
 };
 #endif

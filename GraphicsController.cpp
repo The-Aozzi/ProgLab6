@@ -8,13 +8,13 @@ void GraphicsController::createNewCanvas(){
     std::cout<< "New canvas created.\n";
 }
 
-void GraphicsController::importCanvas(const std::string& data){
-    canvas->importFromFile(data);
+void GraphicsController::importCanvas(std::shared_ptr<Canvas> canvas_){
+    canvas->importFromFile(canvas_);
     std::cout<<"Canvas imported.\n";
 }
 
-void GraphicsController::exportCanvas() const{
-    std::cout<<"Exported canvas:\n"<<canvas->exportToFile();
+void GraphicsController::exportCanvas(std::map<int, std::shared_ptr<Canvas>>& exported) const{
+    std::cout<<"Exported canvas:\n"<<canvas->exportToFile(exported);
 }
 
 void GraphicsController::addShape(const std::shared_ptr<Shape>& shape){

@@ -1,4 +1,5 @@
-#include<iostream>
+#include <iostream>
+#include<map>
 #include "GraphicsController.h"
 #include "canvas.h"
 #include "canvasView.h"
@@ -10,7 +11,11 @@ void export_canvas(GraphicsController& controller);
 void add_shape(GraphicsController& controller);
 void delete_shape(GraphicsController& controller);
 void render_view(GraphicsController& controller);
+
+std::map<int, std::shared_ptr<Canvas>> exported;
+
 int main(){
+    
     std::cout<<"\nWelcome to the Vector Graphics Editor\n";
     show_icon();
     auto canvas=std::make_shared<Canvas>();
@@ -69,14 +74,14 @@ void create_canvas(GraphicsController &controller)
 void import_canvas(GraphicsController &controller)
 {
     std::cout <<"Enter data for import:\n";
-    std::string data;
-    std::getline(std::cin, data);
-    controller.importCanvas(data);
+    int index;
+    std::cin >> index;
+    controller.importCanvas(exported[index]);
 }
 
 void export_canvas(GraphicsController &controller)
 {
-    controller.exportCanvas();
+    controller.exportCanvas(exported);
 }
 
 void add_shape(GraphicsController &controller)
